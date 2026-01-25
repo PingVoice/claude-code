@@ -12,7 +12,10 @@
       "source": "./pingvoice",
       "description": "Voice announcements via PingVoice TTS - audio feedback plays in your browser",
       "version": "1.0.0",
-      "author": "Chris",
+      "author": {
+        "name": "Chris Bautista",
+        "email": "chris.bautista@coreproc.com"
+      },
       "category": "productivity"
     }
   ]
