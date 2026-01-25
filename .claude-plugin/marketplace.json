@@ -1,0 +1,19 @@
+{
+  "name": "pingvoice",
+  "owner": {
+    "name": "Chris"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for voice feedback via PingVoice TTS"
+  },
+  "plugins": [
+    {
+      "name": "pingvoice",
+      "source": "./pingvoice",
+      "description": "Voice announcements via PingVoice TTS - audio feedback plays in your browser",
+      "version": "1.0.0",
+      "author": "Chris",
+      "category": "productivity"
+    }
+  ]
+}

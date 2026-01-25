@@ -1,0 +1,31 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [{
+          "type": "command",
+          "command": "uv run \"$PLUGIN_DIR/scripts/session_start.py\" --announce"
+        }]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [{
+          "type": "command",
+          "command": "uv run \"$PLUGIN_DIR/scripts/notification.py\" --notify"
+        }]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [{
+          "type": "command",
+          "command": "uv run \"$PLUGIN_DIR/scripts/subagent_stop.py\" --notify"
+        }]
+      }
+    ]
+  }
+}
