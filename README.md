@@ -1,6 +1,6 @@
 # PingVoice Plugin for Claude Code
 
-Add voice feedback to your Claude Code sessions! This plugin integrates [PingVoice](https://pingvoice.com) TTS (Text-to-Speech) into Claude Code, giving you audio notifications for session events and task completions.
+Add voice feedback to your Claude Code sessions! This plugin integrates [PingVoice](https://pingvoice.io) TTS (Text-to-Speech) into Claude Code, giving you audio notifications for session events and task completions.
 
 ## Features
 
@@ -16,7 +16,7 @@ Audio plays through your browser via the PingVoice Dashboard - no local TTS engi
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed and configured
 - [uv](https://docs.astral.sh/uv/) - Python package manager (handles dependencies automatically)
-- A [PingVoice](https://pingvoice.com) account with an API key
+- A [PingVoice](https://pingvoice.io) account with an API key
 
 ## Installation
 
