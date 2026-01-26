@@ -32,9 +32,21 @@ Add the marketplace and install the plugin:
 
 ## Configuration
 
-### Environment Variables
+### Quick Setup
 
-Set these in your shell environment or `.env` file:
+Add your API key to your shell profile with one command:
+
+```bash
+# Bash users (Linux default)
+echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.bashrc && source ~/.bashrc
+
+# Zsh users (macOS default)
+echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.zshrc && source ~/.zshrc
+```
+
+Replace `your_key_here` with your actual API key from the [PingVoice Dashboard](https://pingvoice.io).
+
+### Environment Variables
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -44,24 +56,40 @@ Set these in your shell environment or `.env` file:
 | `PINGVOICE_API_VOICE_ID` | No | - | Voice: Kore, Puck, Zephyr, Charon, Fenrir, Aoede, Leda, Orus, Perseus |
 | `PINGVOICE_ORIGIN` | No | - | Origin identifier (e.g., "Claude Code") |
 
-### Example .env
+### Full Configuration Example
+
+Add all desired variables to your shell profile (`~/.bashrc` or `~/.zshrc`):
 
 ```bash
 # Required - Get your API key from the PingVoice Dashboard
-PINGVOICE_API_KEY=your_api_key_here
+export PINGVOICE_API_KEY=your_api_key_here
 
 # Optional - Your name for personalized greetings
-PINGVOICE_USER_NAME=Chris
+export PINGVOICE_USER_NAME=Chris
 
 # Optional - Override API endpoint if self-hosting
-# PINGVOICE_API_URL=http://localhost/api/tts
+# export PINGVOICE_API_URL=http://localhost/api/tts
 
 # Optional - Choose a voice
-PINGVOICE_API_VOICE_ID=Kore
+export PINGVOICE_API_VOICE_ID=Kore
 
 # Optional - Track request origin
-PINGVOICE_ORIGIN=Claude Code
+export PINGVOICE_ORIGIN="Claude Code"
 ```
+
+After adding, run `source ~/.bashrc` (or `source ~/.zshrc`) or restart your terminal.
+
+### Per-Project Overrides
+
+Want a different voice for different projects? Create a `.env` file in your project root to override any setting:
+
+```bash
+# ~/my-project/.env
+PINGVOICE_API_VOICE_ID=Puck
+PINGVOICE_USER_NAME=ProjectLead
+```
+
+Project settings override your shell defaults, so you only need to specify what's different. Your API key from the shell profile is still used.
 
 ## Usage
 
@@ -128,11 +156,17 @@ Set `PINGVOICE_API_VOICE_ID` to one of:
 
 ### "PINGVOICE_API_KEY not set" Error
 
-Set the environment variable in your shell or `.env` file:
+Add the environment variable to your shell profile (not a `.env` file, since the plugin runs from a cache directory):
 
 ```bash
-export PINGVOICE_API_KEY=your_api_key_here
+# Bash
+echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.bashrc && source ~/.bashrc
+
+# Zsh
+echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.zshrc && source ~/.zshrc
 ```
+
+Then restart Claude Code for the changes to take effect.
 
 ### "Rate limit exceeded" Error
 

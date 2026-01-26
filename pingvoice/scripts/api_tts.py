@@ -31,7 +31,14 @@ from dotenv import load_dotenv
 
 def main():
     # Load environment variables
-    load_dotenv()
+    # Project .env overrides shell defaults when running as a Claude Code hook
+    project_dir = os.getenv('CLAUDE_PROJECT_DIR')
+    if project_dir:
+        project_env = os.path.join(project_dir, '.env')
+        load_dotenv(project_env, override=True)
+    else:
+        # Manual testing - load from current directory
+        load_dotenv()
 
     # Get API token
     api_token = os.getenv('PINGVOICE_API_KEY')
