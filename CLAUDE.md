@@ -16,10 +16,9 @@ uv run pingvoice/scripts/api_tts.py "Test message"
 
 # Test plugin loading (from repo root)
 claude --plugin-dir pingvoice
-
-# Claude Code hooks are triggered automatically via pingvoice/hooks/hooks.json
-# No build/test/lint commands - this is a configuration-only project
 ```
+
+No build/test/lint commands - this is a configuration-only project.
 
 ## Architecture
 
@@ -27,66 +26,42 @@ claude --plugin-dir pingvoice
 Claude Code Event → Hook (hooks.json) → Python script → PingVoice API → Browser audio
 ```
 
-### Marketplace Structure
+**Two-level structure:**
+- Repo root (`.claude-plugin/marketplace.json`) - Marketplace manifest listing available plugins
+- `pingvoice/` directory - The actual plugin with hooks, skills, and scripts
 
+**Key files:**
+- `pingvoice/hooks/hooks.json` - Registers hooks for SessionStart, Notification, SubagentStop
+- `pingvoice/scripts/api_tts.py` - Core TTS client (requests + python-dotenv)
+- `pingvoice/skills/speak/SKILL.md` - Skill definition for `/pingvoice:speak` command
+
+## Hook Script Pattern
+
+All hook scripts MUST follow this pattern to avoid blocking Claude Code:
+
+```python
+def main():
+    sys.stdin.read()  # Required - consume stdin from hook system
+    # ... do work ...
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception:
+        pass  # Suppress all exceptions
+    sys.exit(0)  # Always exit 0
 ```
-pingvoice-claude-code-hooks/        ← Repo root is the marketplace
-├── .claude-plugin/
-│   └── marketplace.json            # Marketplace manifest
-├── pingvoice/                      ← Plugin directory
-│   ├── .claude-plugin/
-│   │   └── plugin.json             # Plugin manifest
-│   ├── skills/
-│   │   └── speak/
-│   │       └── SKILL.md            # Claude-invocable TTS skill
-│   ├── hooks/
-│   │   └── hooks.json              # Hook registrations
-│   ├── output-styles/
-│   │   └── tts-summary.md          # Optional output style
-│   ├── scripts/
-│   │   ├── api_tts.py              # Core TTS API client
-│   │   ├── session_start.py        # SessionStart hook script
-│   │   ├── notification.py         # Notification hook script
-│   │   └── subagent_stop.py        # SubagentStop hook script
-│   └── .env.example                # Environment template
-└── README.md
-```
 
-### Core Components
+## Environment Variables
 
-- **`.claude-plugin/marketplace.json`** - Marketplace manifest defining available plugins
-- **`pingvoice/.claude-plugin/plugin.json`** - Plugin manifest with name, version, author
-- **`pingvoice/hooks/hooks.json`** - Registers hooks for SessionStart, Notification, SubagentStop
-- **`pingvoice/skills/speak/SKILL.md`** - Skill definition for `/pingvoice:speak` command
-- **`pingvoice/scripts/api_tts.py`** - Core TTS client (requests + python-dotenv), handles API auth/errors
-- **Hook scripts** (`session_start.py`, `notification.py`, `subagent_stop.py`) - Consume stdin (required by hook system), call api_tts.py, suppress all exceptions to prevent disruption
+`PINGVOICE_API_KEY` (required) - API authentication token
 
-### Environment Variables
+Optional: `PINGVOICE_USER_NAME`, `PINGVOICE_API_URL`, `PINGVOICE_API_VOICE_ID`, `PINGVOICE_ORIGIN`
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `PINGVOICE_API_KEY` | Yes | API authentication token |
-| `PINGVOICE_USER_NAME` | No | User's name for personalized messages |
-| `PINGVOICE_API_URL` | No | Override API endpoint (default: `http://localhost/api/tts`) |
-| `PINGVOICE_API_VOICE_ID` | No | Voice selection (Kore, Puck, Zephyr, Charon, Fenrir, Aoede, Leda, Orus, Perseus) |
-| `PINGVOICE_ORIGIN` | No | Request origin identifier |
+Per-project `.env` files override shell defaults (loaded via `CLAUDE_PROJECT_DIR`).
 
-### Hook Events Used
+## Adding New Hooks
 
-- `SessionStart` - Greeting when session begins
-- `Notification` - Alert when user input needed
-- `SubagentStop` - Announcement when subagent completes
-
-### Technical Details
-
-- Python >=3.8 for api_tts.py, >=3.11 for hook scripts
-- Uses uv inline script format (dependencies declared in script headers)
-- All hooks exit with code 0 even on error (non-blocking requirement)
-- API rate limit: 10 requests/minute
-- User name personalization via `PINGVOICE_USER_NAME` env var
-
-## Customization
-
-- **TTS messages**: Edit the hook scripts in `pingvoice/scripts/`
-- **Add hooks**: Create script in `pingvoice/scripts/`, register in `pingvoice/hooks/hooks.json`
-- **Disable features**: Remove entries from `pingvoice/hooks/hooks.json`
+1. Create script in `pingvoice/scripts/` following the pattern above
+2. Register in `pingvoice/hooks/hooks.json`
+3. Available events: SessionStart, Notification, SubagentStop, Stop, PreToolUse, PostToolUse, UserPromptSubmit

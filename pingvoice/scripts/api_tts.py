@@ -38,7 +38,7 @@ def main():
         load_dotenv(project_env, override=True)
     else:
         # Manual testing - load from current directory
-        load_dotenv()
+        load_dotenv(override=True)
 
     # Get API token
     api_token = os.getenv('PINGVOICE_API_KEY')

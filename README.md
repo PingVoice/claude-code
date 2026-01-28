@@ -81,15 +81,16 @@ After adding, run `source ~/.bashrc` (or `source ~/.zshrc`) or restart your term
 
 ### Per-Project Overrides
 
-Want a different voice for different projects? Create a `.env` file in your project root to override any setting:
+Want a different voice or settings for different projects? Create a `.env` file in your project root:
 
 ```bash
 # ~/my-project/.env
+PINGVOICE_API_KEY=project_specific_key
 PINGVOICE_API_VOICE_ID=Puck
 PINGVOICE_USER_NAME=ProjectLead
 ```
 
-Project settings override your shell defaults, so you only need to specify what's different. Your API key from the shell profile is still used.
+**Important:** `.env` values always override shell environment variables. This means you can set defaults in your shell profile and override them per-project, or keep all configuration in `.env` files.
 
 ## Usage
 
@@ -156,8 +157,15 @@ Set `PINGVOICE_API_VOICE_ID` to one of:
 
 ### "PINGVOICE_API_KEY not set" Error
 
-Add the environment variable to your shell profile (not a `.env` file, since the plugin runs from a cache directory):
+Set the API key via either method:
 
+**Option 1: Project `.env` file** (recommended)
+```bash
+# In your project root
+echo 'PINGVOICE_API_KEY=your_key_here' >> .env
+```
+
+**Option 2: Shell profile** (global default)
 ```bash
 # Bash
 echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.bashrc && source ~/.bashrc

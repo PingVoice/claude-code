@@ -19,7 +19,11 @@ def main():
     sys.stdin.read()
 
     # Load environment variables
-    load_dotenv()
+    project_dir = os.getenv('CLAUDE_PROJECT_DIR')
+    if project_dir:
+        load_dotenv(os.path.join(project_dir, '.env'), override=True)
+    else:
+        load_dotenv(override=True)
 
     # Get user name from environment (default to generic greeting)
     user_name = os.getenv('PINGVOICE_USER_NAME', '')
