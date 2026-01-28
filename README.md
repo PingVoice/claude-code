@@ -120,36 +120,12 @@ Invoke the speak skill to have Claude announce something:
 
 ### Output Style (Optional)
 
-Enable the TTS Summary output style in your Claude Code settings to have Claude announce a summary at the end of every response.
+Enable the TTS Summary output style to have Claude announce a summary at the end of every response.
 
-## Customization
+1. Inside Claude Code, type `/output-style`
+2. Select **pingvoice:TTS Summary** from the list
 
-### Changing TTS Messages
-
-Edit the message strings in the hook scripts:
-
-- **Session greeting**: `pingvoice/scripts/session_start.py`
-- **Input notification**: `pingvoice/scripts/notification.py`
-- **Subagent completion**: `pingvoice/scripts/subagent_stop.py`
-
-### Adding New Hooks
-
-1. Create a new Python script in `pingvoice/scripts/`
-2. Follow the pattern of existing scripts (consume stdin, call api_tts.py)
-3. Register the hook in `pingvoice/hooks/hooks.json`
-
-Available hook events:
-- `SessionStart` - When a session begins
-- `Notification` - When user input is needed
-- `SubagentStop` - When a subagent task completes
-- `Stop` - When Claude stops generating
-- `PreToolUse` / `PostToolUse` - Before/after tool execution
-- `UserPromptSubmit` - When user submits a prompt
-
-### Voice Selection
-
-Set `PINGVOICE_API_VOICE_ID` to one of:
-- Kore, Puck, Zephyr, Charon, Fenrir, Aoede, Leda, Orus, Perseus
+When enabled, Claude will speak a brief audio summary of what it accomplished after completing each task.
 
 ## Troubleshooting
 
