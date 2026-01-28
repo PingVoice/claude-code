@@ -110,15 +110,7 @@ Once installed, the plugin automatically triggers audio for:
 - **Notification** - "Hey [name], I need your input."
 - **Subagent Stop** - "Subagent complete."
 
-### Speak Skill
-
-Invoke the speak skill to have Claude announce something:
-
-```
-/pingvoice:speak Your task is complete!
-```
-
-### Output Style (Optional)
+### Output Style
 
 Enable the TTS Summary output style to have Claude announce a summary at the end of every response.
 
@@ -126,6 +118,14 @@ Enable the TTS Summary output style to have Claude announce a summary at the end
 2. Select **pingvoice:TTS Summary** from the list
 
 When enabled, Claude will speak a brief audio summary of what it accomplished after completing each task.
+
+### Speak Skill
+
+Invoke the speak skill to have Claude announce something:
+
+```
+/pingvoice:speak Your task is complete!
+```
 
 ## Troubleshooting
 
