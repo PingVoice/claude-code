@@ -36,22 +36,29 @@ print_info() {
 }
 
 check_command() {
-    if command -v "$1" &> /dev/null; then
-        return 0
-    else
-        return 1
-    fi
+    command -v "$1" &> /dev/null
 }
 
 # Check if running interactively (can read from terminal)
 check_interactive() {
-    if [ -t 0 ]; then
-        return 0
-    else
-        # When piped from curl, we need to reopen stdin from the terminal
-        exec < /dev/tty
-        return 0
+    # When piped from curl, we need to reopen stdin from the terminal
+    [ -t 0 ] || exec < /dev/tty
+}
+
+send_tts_request() {
+    local api_key="$1"
+    local message="$2"
+    local voice="${3:-}"
+    local body="{\"message\": \"${message}\"}"
+
+    if [ -n "$voice" ]; then
+        body="{\"message\": \"${message}\", \"voiceId\": \"${voice}\"}"
     fi
+
+    curl -s -w "\n%{http_code}" -X POST "https://pingvoice.io/api/tts" \
+        -H "Authorization: Bearer ${api_key}" \
+        -H "Content-Type: application/json" \
+        -d "$body" 2>/dev/null || echo -e "\n000"
 }
 
 validate_api_key() {
@@ -59,12 +66,7 @@ validate_api_key() {
     local response
     local http_code
 
-    # Make a test request to the PingVoice API
-    response=$(curl -s -w "\n%{http_code}" -X POST "https://pingvoice.io/api/tts" \
-        -H "Authorization: Bearer ${api_key}" \
-        -H "Content-Type: application/json" \
-        -d '{"message": "API key validated"}' 2>/dev/null || echo -e "\n000")
-
+    response=$(send_tts_request "$api_key" "API key validated")
     http_code=$(echo "$response" | tail -n1)
 
     if [ "$http_code" = "202" ]; then
@@ -288,10 +290,7 @@ main() {
     fi
 
     local test_response
-    test_response=$(curl -s -w "\n%{http_code}" -X POST "https://pingvoice.io/api/tts" \
-        -H "Authorization: Bearer ${PINGVOICE_API_KEY}" \
-        -H "Content-Type: application/json" \
-        -d "{\"message\": \"${test_message}\", \"voiceId\": \"${PINGVOICE_VOICE}\"}" 2>/dev/null || echo -e "\n000")
+    test_response=$(send_tts_request "$PINGVOICE_API_KEY" "$test_message" "$PINGVOICE_VOICE")
 
     local test_code
     test_code=$(echo "$test_response" | tail -n1)
@@ -321,4 +320,3 @@ main() {
 }
 
 main
-exit 0

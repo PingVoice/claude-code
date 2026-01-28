@@ -12,16 +12,6 @@
 
 $ErrorActionPreference = "Stop"
 
-# Colors
-function Write-ColorOutput($ForegroundColor) {
-    $fc = $host.UI.RawUI.ForegroundColor
-    $host.UI.RawUI.ForegroundColor = $ForegroundColor
-    if ($args) {
-        Write-Output $args
-    }
-    $host.UI.RawUI.ForegroundColor = $fc
-}
-
 function Write-Header {
     Write-Host ""
     Write-Host "🔊 PingVoice Installer for Claude Code" -ForegroundColor Blue
@@ -45,27 +35,30 @@ function Write-Info($message) {
 }
 
 function Test-CommandExists($command) {
-    $null = Get-Command $command -ErrorAction SilentlyContinue
-    return $?
+    [bool](Get-Command $command -ErrorAction SilentlyContinue)
+}
+
+function Send-TtsRequest($apiKey, $message, $voice) {
+    $headers = @{
+        "Authorization" = "Bearer $apiKey"
+        "Content-Type" = "application/json"
+    }
+    $body = @{ message = $message }
+    if ($voice) {
+        $body.voiceId = $voice
+    }
+
+    Invoke-WebRequest -Uri "https://pingvoice.io/api/tts" `
+        -Method Post `
+        -Headers $headers `
+        -Body ($body | ConvertTo-Json) `
+        -UseBasicParsing `
+        -ErrorAction SilentlyContinue
 }
 
 function Test-ApiKey($apiKey) {
     try {
-        $headers = @{
-            "Authorization" = "Bearer $apiKey"
-            "Content-Type" = "application/json"
-        }
-        $body = @{
-            message = "API key validated"
-        } | ConvertTo-Json
-
-        $response = Invoke-WebRequest -Uri "https://pingvoice.io/api/tts" `
-            -Method Post `
-            -Headers $headers `
-            -Body $body `
-            -UseBasicParsing `
-            -ErrorAction SilentlyContinue
-
+        $response = Send-TtsRequest $apiKey "API key validated"
         return $response.StatusCode -eq 202
     }
     catch {
@@ -202,12 +195,8 @@ function Main {
     # Step 4: Voice selection
     Write-Host "Select a voice (default: Kore):"
     for ($i = 0; $i -lt $voices.Count; $i++) {
-        if ($i -eq 0) {
-            Write-Host "  $($i + 1)) $($voices[$i]) (default)"
-        }
-        else {
-            Write-Host "  $($i + 1)) $($voices[$i])"
-        }
+        $suffix = if ($i -eq 0) { " (default)" } else { "" }
+        Write-Host "  $($i + 1)) $($voices[$i])$suffix"
     }
     Write-Host ""
     $voiceChoice = Read-Host "Enter number [1]"
@@ -289,21 +278,7 @@ function Main {
     }
 
     try {
-        $headers = @{
-            "Authorization" = "Bearer $apiKey"
-            "Content-Type" = "application/json"
-        }
-        $body = @{
-            message = $testMessage
-            voiceId = $selectedVoice
-        } | ConvertTo-Json
-
-        $response = Invoke-WebRequest -Uri "https://pingvoice.io/api/tts" `
-            -Method Post `
-            -Headers $headers `
-            -Body $body `
-            -UseBasicParsing `
-            -ErrorAction SilentlyContinue
+        $response = Send-TtsRequest $apiKey $testMessage $selectedVoice
 
         if ($response.StatusCode -eq 202) {
             Write-Success "`"$testMessage`" - audio sent"
