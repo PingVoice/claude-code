@@ -36,3 +36,13 @@ uv run "<resolved_script_path>" "<message>"
 - When summarizing what you accomplished
 - When the user explicitly asks to hear something
 - After significant milestones in a session
+
+## Response Format
+
+After running the command, respond with ONLY:
+
+```
+🔊 "<the full message that was sent>"
+```
+
+Do NOT add any additional commentary like "queued for playback" or "audio sent". The speaker emoji and quoted message is sufficient confirmation.

@@ -1,7 +1,7 @@
 {
   "name": "pingvoice",
   "description": "Voice announcements via PingVoice TTS - audio feedback plays in your browser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Chris"
   }
