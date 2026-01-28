@@ -22,12 +22,12 @@ Audio plays through your browser via the PingVoice Dashboard - no local TTS engi
 
 Add the marketplace and install the plugin:
 
-```
-/plugin marketplace add pingvoice/claude-code
+```bash
+claude plugin marketplace add pingvoice/claude-code
 ```
 
-```
-/plugin install pingvoice@pingvoice
+```bash
+claude plugin install pingvoice@pingvoice
 ```
 
 ## Configuration
@@ -87,6 +87,18 @@ PINGVOICE_USER_NAME=ProjectLead
 ```
 
 **Important:** `.env` values always override shell environment variables. This means you can set defaults in your shell profile and override them per-project, or keep all configuration in `.env` files.
+
+## Updating
+
+Update the marketplace and plugin to the latest version:
+
+```bash
+claude plugin marketplace update pingvoice/claude-code
+```
+
+```bash
+claude plugin update pingvoice@pingvoice
+```
 
 ## Usage
 
