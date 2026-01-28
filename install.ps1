@@ -132,9 +132,32 @@ function Main {
     else {
         Write-Error "uv not found"
         Write-Host ""
-        Write-Host "Please install uv first:"
-        Write-Host "  powershell -ExecutionPolicy ByPass -c `"irm https://astral.sh/uv/install.ps1 | iex`""
-        exit 1
+        $installUv = Read-Host "Would you like to install uv now? [Y/n]"
+        if ([string]::IsNullOrWhiteSpace($installUv) -or $installUv -eq "Y" -or $installUv -eq "y") {
+            Write-Host ""
+            Write-Info "Installing uv..."
+            try {
+                Invoke-Expression (Invoke-RestMethod https://astral.sh/uv/install.ps1)
+                $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+                if (Test-CommandExists "uv") {
+                    Write-Success "uv installed"
+                }
+                else {
+                    Write-Error "Failed to install uv"
+                    exit 1
+                }
+            }
+            catch {
+                Write-Error "Failed to install uv: $_"
+                exit 1
+            }
+        }
+        else {
+            Write-Host ""
+            Write-Host "Please install uv manually:"
+            Write-Host "  powershell -ExecutionPolicy ByPass -c `"irm https://astral.sh/uv/install.ps1 | iex`""
+            exit 1
+        }
     }
 
     Write-Host ""

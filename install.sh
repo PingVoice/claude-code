@@ -146,9 +146,25 @@ main() {
     else
         print_error "uv not found"
         echo ""
-        echo "Please install uv first:"
-        echo "  curl -LsSf https://astral.sh/uv/install.sh | sh"
-        exit 1
+        echo -n "Would you like to install uv now? [Y/n]: "
+        read -r install_uv
+        if [ -z "$install_uv" ] || [ "$install_uv" = "Y" ] || [ "$install_uv" = "y" ]; then
+            echo ""
+            print_info "Installing uv..."
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            export PATH="$HOME/.local/bin:$PATH"
+            if check_command "uv"; then
+                print_success "uv installed"
+            else
+                print_error "Failed to install uv"
+                exit 1
+            fi
+        else
+            echo ""
+            echo "Please install uv manually:"
+            echo "  curl -LsSf https://astral.sh/uv/install.sh | sh"
+            exit 1
+        fi
     fi
 
     echo ""
