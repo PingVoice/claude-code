@@ -156,8 +156,7 @@ main() {
     # Step 2: Prompt for API key
     while true; do
         echo -n "Enter your PingVoice API key: "
-        read -rs PINGVOICE_API_KEY
-        echo ""
+        read -r PINGVOICE_API_KEY
 
         if [ -z "$PINGVOICE_API_KEY" ]; then
             print_error "API key is required"
