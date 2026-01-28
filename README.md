@@ -2,6 +2,25 @@
 
 Add voice feedback to your Claude Code sessions! This plugin integrates [PingVoice](https://pingvoice.io) TTS (Text-to-Speech) into Claude Code, giving you audio notifications for session events and task completions.
 
+## Quick Install
+
+**macOS / Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/pingvoice/claude-code/master/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/pingvoice/claude-code/master/install.ps1 | iex
+```
+
+The installer will:
+- Prompt for your PingVoice API key and validate it
+- Ask for your name (for personalized greetings)
+- Let you choose a voice
+- Install the plugin and configure your shell
+- Send a test message to confirm everything works
+
 ## Features
 
 - **Session Greeting** - Hear a personalized welcome when you start a Claude Code session
@@ -18,33 +37,34 @@ Audio plays through your browser via the PingVoice Dashboard - no local TTS engi
 - [uv](https://docs.astral.sh/uv/) - Python package manager (handles dependencies automatically)
 - A [PingVoice](https://pingvoice.io) account with an API key
 
-## Installation
+## Usage
 
-Add the marketplace and install the plugin:
+### Automatic Hooks
 
-```bash
-claude plugin marketplace add pingvoice/claude-code
+Once installed, the plugin automatically triggers audio for:
+
+- **Session Start** - "Hi [name], let's start coding."
+- **Notification** - "Hey [name], I need your input."
+- **Subagent Stop** - "Subagent complete."
+
+### Output Style
+
+Enable the TTS Summary output style to have Claude announce a summary at the end of every response.
+
+1. Inside Claude Code, type `/output-style`
+2. Select **pingvoice:TTS Summary** from the list
+
+When enabled, Claude will speak a brief audio summary of what it accomplished after completing each task.
+
+### Speak Skill
+
+Invoke the speak skill to have Claude announce something:
+
 ```
-
-```bash
-claude plugin install pingvoice@pingvoice
+/pingvoice:speak Your task is complete!
 ```
 
 ## Configuration
-
-### Quick Setup
-
-Add your API key to your shell profile with one command:
-
-```bash
-# Bash users (Linux default)
-echo 'export PINGVOICE_API_KEY="your_key_here"' >> ~/.bashrc && source ~/.bashrc
-
-# Zsh users (macOS default)
-echo 'export PINGVOICE_API_KEY="your_key_here"' >> ~/.zshrc && source ~/.zshrc
-```
-
-Replace `your_key_here` with your actual API key from the [PingVoice Dashboard](https://pingvoice.io).
 
 ### Environment Variables
 
@@ -57,7 +77,7 @@ Replace `your_key_here` with your actual API key from the [PingVoice Dashboard](
 
 ### Full Configuration Example
 
-Add all desired variables to your shell profile (`~/.bashrc` or `~/.zshrc`):
+Update all desired variables to your shell profile (`~/.bashrc` or `~/.zshrc`):
 
 ```bash
 # Required - Get your API key from the PingVoice Dashboard
@@ -99,93 +119,6 @@ claude plugin marketplace update pingvoice/claude-code
 ```bash
 claude plugin update pingvoice@pingvoice
 ```
-
-## Usage
-
-### Automatic Hooks
-
-Once installed, the plugin automatically triggers audio for:
-
-- **Session Start** - "Hi [name], let's start coding."
-- **Notification** - "Hey [name], I need your input."
-- **Subagent Stop** - "Subagent complete."
-
-### Output Style
-
-Enable the TTS Summary output style to have Claude announce a summary at the end of every response.
-
-1. Inside Claude Code, type `/output-style`
-2. Select **pingvoice:TTS Summary** from the list
-
-When enabled, Claude will speak a brief audio summary of what it accomplished after completing each task.
-
-### Speak Skill
-
-Invoke the speak skill to have Claude announce something:
-
-```
-/pingvoice:speak Your task is complete!
-```
-
-## Troubleshooting
-
-### No Audio Playing
-
-1. **Check your API key** - Ensure `PINGVOICE_API_KEY` is set correctly
-2. **Open the PingVoice Dashboard** - Audio plays in the browser, make sure the dashboard tab is open
-3. **Test manually**:
-   ```bash
-   uv run pingvoice/scripts/api_tts.py "Test message"
-   ```
-
-### "PINGVOICE_API_KEY not set" Error
-
-Set the API key via either method:
-
-**Option 1: Project `.env` file** (recommended)
-```bash
-# In your project root
-echo 'PINGVOICE_API_KEY=your_key_here' >> .env
-```
-
-**Option 2: Shell profile** (global default)
-```bash
-# Bash
-echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.bashrc && source ~/.bashrc
-
-# Zsh
-echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.zshrc && source ~/.zshrc
-```
-
-Then restart Claude Code for the changes to take effect.
-
-### "Rate limit exceeded" Error
-
-PingVoice has a rate limit of 10 requests per minute. If you're hitting this limit, consider:
-- Disabling some hooks (e.g., `SubagentStop` if using many subagents)
-- Spacing out your Claude Code sessions
-
-### Hooks Not Firing
-
-1. Verify the plugin is loaded: `claude plugins list`
-2. Check that uv is installed: `uv --version`
-3. Ensure scripts are executable
-
-## How It Works
-
-```
-Claude Code Event (e.g., session start)
-         ↓
-Hook triggers (defined in hooks/hooks.json)
-         ↓
-Python script sends message to PingVoice API
-         ↓
-API queues the audio (responds with 202 Accepted)
-         ↓
-Audio plays in your browser via WebSocket
-```
-
-The system uses a **fire-and-forget** design - scripts send the TTS request and exit immediately, so they never block Claude Code.
 
 ## Acknowledgments
 
