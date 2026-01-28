@@ -52,7 +52,6 @@ Replace `your_key_here` with your actual API key from the [PingVoice Dashboard](
 |----------|----------|---------|-------------|
 | `PINGVOICE_API_KEY` | Yes | - | API token from PingVoice Dashboard |
 | `PINGVOICE_USER_NAME` | No | - | Your name for personalized messages |
-| `PINGVOICE_API_URL` | No | `http://localhost/api/tts` | TTS API endpoint URL |
 | `PINGVOICE_API_VOICE_ID` | No | - | Voice: Kore, Puck, Zephyr, Charon, Fenrir, Aoede, Leda, Orus, Perseus |
 | `PINGVOICE_ORIGIN` | No | - | Origin identifier (e.g., "Claude Code") |
 
@@ -66,9 +65,6 @@ export PINGVOICE_API_KEY=your_api_key_here
 
 # Optional - Your name for personalized greetings
 export PINGVOICE_USER_NAME=Chris
-
-# Optional - Override API endpoint if self-hosting
-# export PINGVOICE_API_URL=http://localhost/api/tts
 
 # Optional - Choose a voice
 export PINGVOICE_API_VOICE_ID=Kore
@@ -149,8 +145,7 @@ Set `PINGVOICE_API_VOICE_ID` to one of:
 
 1. **Check your API key** - Ensure `PINGVOICE_API_KEY` is set correctly
 2. **Open the PingVoice Dashboard** - Audio plays in the browser, make sure the dashboard tab is open
-3. **Check the API URL** - If self-hosting, verify `PINGVOICE_API_URL` is correct
-4. **Test manually**:
+3. **Test manually**:
    ```bash
    uv run pingvoice/scripts/api_tts.py "Test message"
    ```

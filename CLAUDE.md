@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
 `PINGVOICE_API_KEY` (required) - API authentication token
 
-Optional: `PINGVOICE_USER_NAME`, `PINGVOICE_API_URL`, `PINGVOICE_API_VOICE_ID`, `PINGVOICE_ORIGIN`
+Optional: `PINGVOICE_USER_NAME`, `PINGVOICE_API_VOICE_ID`, `PINGVOICE_ORIGIN`
 
 Per-project `.env` files override shell defaults (loaded via `CLAUDE_PROJECT_DIR`).
 
