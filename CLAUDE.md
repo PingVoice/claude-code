@@ -63,5 +63,8 @@ Per-project `.env` files override shell defaults (loaded via `CLAUDE_PROJECT_DIR
 ## Adding New Hooks
 
 1. Create script in `pingvoice/scripts/` following the pattern above
-2. Register in `pingvoice/hooks/hooks.json`
+2. Register in `pingvoice/hooks/hooks.json` using `${CLAUDE_PLUGIN_ROOT}` for paths:
+   ```json
+   "command": "uv run \"${CLAUDE_PLUGIN_ROOT}/scripts/your_script.py\""
+   ```
 3. Available events: SessionStart, Notification, SubagentStop, Stop, PreToolUse, PostToolUse, UserPromptSubmit

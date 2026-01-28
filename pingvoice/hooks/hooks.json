@@ -5,7 +5,7 @@
         "matcher": "",
         "hooks": [{
           "type": "command",
-          "command": "uv run \"$PLUGIN_DIR/scripts/session_start.py\" --announce"
+          "command": "uv run \"${CLAUDE_PLUGIN_ROOT}/scripts/session_start.py\" --announce"
         }]
       }
     ],
@@ -14,7 +14,7 @@
         "matcher": "",
         "hooks": [{
           "type": "command",
-          "command": "uv run \"$PLUGIN_DIR/scripts/notification.py\" --notify"
+          "command": "uv run \"${CLAUDE_PLUGIN_ROOT}/scripts/notification.py\" --notify"
         }]
       }
     ],
@@ -23,7 +23,7 @@
         "matcher": "",
         "hooks": [{
           "type": "command",
-          "command": "uv run \"$PLUGIN_DIR/scripts/subagent_stop.py\" --notify"
+          "command": "uv run \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent_stop.py\" --notify"
         }]
       }
     ]
