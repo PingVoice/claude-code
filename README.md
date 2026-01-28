@@ -38,10 +38,10 @@ Add your API key to your shell profile with one command:
 
 ```bash
 # Bash users (Linux default)
-echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.bashrc && source ~/.bashrc
+echo 'export PINGVOICE_API_KEY="your_key_here"' >> ~/.bashrc && source ~/.bashrc
 
 # Zsh users (macOS default)
-echo 'export PINGVOICE_API_KEY=your_key_here' >> ~/.zshrc && source ~/.zshrc
+echo 'export PINGVOICE_API_KEY="your_key_here"' >> ~/.zshrc && source ~/.zshrc
 ```
 
 Replace `your_key_here` with your actual API key from the [PingVoice Dashboard](https://pingvoice.io).
@@ -61,7 +61,7 @@ Add all desired variables to your shell profile (`~/.bashrc` or `~/.zshrc`):
 
 ```bash
 # Required - Get your API key from the PingVoice Dashboard
-export PINGVOICE_API_KEY=your_api_key_here
+export PINGVOICE_API_KEY="your_api_key_here"
 
 # Optional - Your name for personalized greetings
 export PINGVOICE_USER_NAME=Chris
