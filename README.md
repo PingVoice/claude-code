@@ -2,7 +2,7 @@
 
 Add voice feedback to your Claude Code sessions! This plugin integrates [PingVoice](https://pingvoice.io) TTS (Text-to-Speech) into Claude Code, giving you audio notifications for session events and task completions.
 
-[![Watch the Video Tutorial](assets/pingvoice-claude-code-video-thumbnail.png)](https://www.youtube.com/watch?v=EsGWpLlOi0w)
+[![Watch the Video Tutorial](assets/pingvoice-claude-code-video-thumbnail.jpg)](https://www.youtube.com/watch?v=EsGWpLlOi0w)
 
 ## Quick Install
 
