@@ -17,7 +17,7 @@ def main():
     # Announce completion
     tts_script = Path(__file__).parent / "api_tts.py"
     subprocess.run(
-        ["uv", "run", str(tts_script), "satisfied: Subagent complete."],
+        ["uv", "run", str(tts_script), "satisfied: A subagent just finished its task."],
         capture_output=True,
         timeout=10
     )

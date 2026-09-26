@@ -22,7 +22,7 @@ Run this to speak (replace the path with the resolved absolute path):
 uv run "<resolved_script_path>" "<emotion>: <message>"
 ```
 
-Start the message with an emotion prefix, e.g. `excited: All forty tests pass!`. The voice performs the emotion instead of reading it aloud.
+Start the message with an emotion prefix, e.g. `excited: All forty tests pass!`. The voice performs the emotion instead of reading it aloud, but only when a full sentence follows it (six or more words). After just a few words, it reads the emotion aloud.
 
 ## Message Guidelines
 
