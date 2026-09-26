@@ -19,12 +19,15 @@ The skill base directory shown above is `<plugin>/skills/speak`. The TTS script 
 
 Run this to speak (replace the path with the resolved absolute path):
 ```bash
-uv run "<resolved_script_path>" "<message>"
+uv run "<resolved_script_path>" "<emotion>: <message>"
 ```
+
+Start the message with an emotion prefix, e.g. `excited: All forty tests pass!`. The voice performs the emotion instead of reading it aloud.
 
 ## Message Guidelines
 
-- Keep messages under 25 words
+- Keep messages under 25 words (not counting the emotion prefix)
+- Pick an emotion that fits the moment: pleased or cheerful for routine work, excited or proud for big wins, playful for light moments, apologetic or calm for failures, curious when you need input
 - Address the user directly with warmth
 - Focus on outcomes ("You're all set", "I've got you covered")
 - Be conversational, not robotic

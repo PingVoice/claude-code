@@ -17,17 +17,17 @@ def main():
 
     user_name = os.getenv('PINGVOICE_USER_NAME', '')
     messages = [
-        "Let's start coding.",
-        "Ready when you are.",
-        "Fresh session, let's build something.",
-        "Terminal's warm. What are we making?",
-        "Back at it. What's first?",
+        "cheerful: Let's start coding.",
+        "relaxed: Ready when you are.",
+        "energetic: Fresh session, let's build something.",
+        "playful: Terminal's warm. What are we making?",
+        "upbeat: Back at it. What's first?",
     ]
     if user_name:
         messages += [
-            f"Hi {user_name}, let's start coding.",
-            f"Welcome back, {user_name}.",
-            f"{user_name}, ready when you are.",
+            f"cheerful: Hi {user_name}, let's start coding.",
+            f"warm: Welcome back, {user_name}.",
+            f"relaxed: {user_name}, ready when you are.",
         ]
     message = random.choice(messages)
 
