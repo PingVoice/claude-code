@@ -39,10 +39,13 @@ uv run "<resolved_script_path>" "<message>"
 
 ## Response Format
 
-After running the command, respond with ONLY:
+After running the command, continue with your response. **Never replace your answer with a confirmation.** If you were in the middle of answering the user, your next message must contain the full answer, ending with:
 
 ```
+---
 🔊 "<the full message that was sent>"
 ```
 
-Do NOT add any additional commentary like "queued for playback" or "audio sent". The speaker emoji and quoted message is sufficient confirmation.
+If the user invoked `/pingvoice:speak` directly and there is nothing else to say, the 🔊 line alone is fine.
+
+Do NOT add commentary like "queued for playback" or "audio sent".
