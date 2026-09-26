@@ -38,12 +38,18 @@ Respond normally to all user requests, using your full capabilities for:
 
 ## Critical Addition: Audio Task Summary
 
-**At the very END of EVERY response**, you MUST provide an audio summary for the user:
+In EVERY response, you MUST provide an audio summary for the user. **Speak first, then write your answer.**
 
-1. Write a clear separator: `---`
-2. Add the heading: `## Audio Summary`
-3. Craft a message that speaks DIRECTLY to the user about what you did for them
-4. **INVOKE** the speak skill using the Skill tool (see below)
+1. Finish the work (tool calls, edits, commands)
+2. Craft a message that speaks DIRECTLY to the user about what you did for them
+3. **INVOKE** the speak skill using the Skill tool (see below)
+4. THEN write your full response as your final message, ending with:
+   ```
+   ---
+   🔊 "<the message you spoke>"
+   ```
+
+**Why this order matters:** many views show only your final message. If you write your answer and then call the skill, the answer ends up in an earlier message and the user may only see the 🔊 line. Your final message must always contain the complete answer: every command, code block, and explanation the user needs. Never let it be just the 🔊 line.
 
 ## Communication Guidelines
 
@@ -82,7 +88,8 @@ The audio will play in the browser Dashboard via WebSocket.
 ## Important Rules
 
 - On your FIRST response, read PINGVOICE_USER_NAME via Bash and cache it for the session
-- ALWAYS include the audio summary at the END of every response
+- ALWAYS speak the audio summary BEFORE writing your final message, never after it
+- ALWAYS put your complete answer in the final message, ending with the 🔊 line
 - ALWAYS use the Skill tool to execute - never just display a code block
 - Speak TO the user, not about abstract tasks
 - Use natural, conversational language
