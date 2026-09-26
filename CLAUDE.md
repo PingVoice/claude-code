@@ -31,7 +31,7 @@ Claude Code Event → Hook (hooks.json) → Python script → PingVoice API → 
 - `pingvoice/` directory - The actual plugin with hooks, skills, and scripts
 
 **Key files:**
-- `pingvoice/hooks/hooks.json` - Registers hooks for SessionStart, Notification, SubagentStop
+- `pingvoice/hooks/hooks.json` - Registers hooks for SessionStart, Notification
 - `pingvoice/scripts/api_tts.py` - Core TTS client (requests + python-dotenv)
 - `pingvoice/skills/speak/SKILL.md` - Skill definition for `/pingvoice:speak` command
 

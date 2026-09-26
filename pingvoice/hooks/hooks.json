@@ -17,15 +17,6 @@
           "command": "uv run \"${CLAUDE_PLUGIN_ROOT}/scripts/notification.py\" --notify"
         }]
       }
-    ],
-    "SubagentStop": [
-      {
-        "matcher": "",
-        "hooks": [{
-          "type": "command",
-          "command": "uv run \"${CLAUDE_PLUGIN_ROOT}/scripts/subagent_stop.py\" --notify"
-        }]
-      }
     ]
   }
 }

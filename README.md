@@ -27,7 +27,6 @@ The installer will:
 
 - **Session Greeting** - Hear a personalized welcome when you start a Claude Code session
 - **Input Notifications** - Get audio alerts when Claude needs your input
-- **Subagent Completion** - Know when background tasks finish without watching the terminal
 - **Speak Skill** - Invoke `/pingvoice:speak` to have Claude announce messages on demand
 - **Task Summaries** - Claude announces what it accomplished after completing work (via output style)
 
@@ -45,11 +44,10 @@ Audio plays through your browser via the PingVoice Dashboard - no local TTS engi
 
 Once installed, the plugin automatically triggers audio for:
 
-- **Session Start** - A varied welcome, e.g. "Welcome back, [name]." or "Ready when you are."
-- **Notification** - A varied nudge, e.g. "Over to you, [name]." or "Quick question waiting for you."
-- **Subagent Stop** - "Subagent complete."
+- **Session Start** - A varied welcome, e.g. "Welcome back, [name]. It's good to be working together again."
+- **Notification** - A varied nudge, e.g. "There's a quick question waiting for you in the terminal."
 
-Every spoken line starts with an emotion prefix (e.g. `cheerful: Welcome back.`) that PingVoice's Gemini voices perform rather than read aloud.
+Every spoken line starts with an emotion prefix (e.g. `warm: Welcome back, it's good to see you again.`) that PingVoice's Gemini voices perform rather than read aloud. The prefix needs a full sentence after it; with only a few words, the voice reads the emotion aloud.
 
 ### Output Style
 
