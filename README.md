@@ -45,9 +45,11 @@ Audio plays through your browser via the PingVoice Dashboard - no local TTS engi
 
 Once installed, the plugin automatically triggers audio for:
 
-- **Session Start** - "Hi [name], let's start coding."
-- **Notification** - "Hey [name], I need your input."
+- **Session Start** - A varied welcome, e.g. "Welcome back, [name]." or "Ready when you are."
+- **Notification** - A varied nudge, e.g. "Over to you, [name]." or "Quick question waiting for you."
 - **Subagent Stop** - "Subagent complete."
+
+Every spoken line starts with an emotion prefix (e.g. `cheerful: Welcome back.`) that PingVoice's Gemini voices perform rather than read aloud.
 
 ### Output Style
 
