@@ -28,7 +28,7 @@ The installer will:
 - **Session Greeting** - Hear a personalized welcome when you start a Claude Code session
 - **Input Notifications** - Get audio alerts when Claude needs your input
 - **Speak Skill** - Invoke `/pingvoice:speak` to have Claude announce messages on demand
-- **Task Summaries** - Claude announces what it accomplished after completing work (via output style)
+- **Spoken Briefings** - After each response, Claude names the project, says what it did, and recommends the next step (via output style)
 
 Audio plays through your browser via the PingVoice Dashboard - no local TTS engine required!
 
@@ -51,12 +51,18 @@ Every spoken line starts with an emotion prefix (e.g. `warm: Welcome back, it's 
 
 ### Output Style
 
-Enable the TTS Summary output style to have Claude announce a summary at the end of every response.
+Enable the TTS Summary output style to have Claude keep its text replies concise and speak a short briefing at the end of every response.
 
 1. Inside Claude Code, type `/output-style`
 2. Select **pingvoice:TTS Summary** from the list
 
-When enabled, Claude will speak a brief audio summary of what it accomplished after completing each task.
+When enabled, each briefing is two or three sentences (about 50 words) that:
+
+- **name the project**, placed naturally in the sentence, so you can tell which of several sessions is talking
+- **say what was done**, and how when that matters
+- **recommend the next step**, or ask the question that is waiting on you, and mention a blocker only when there is one
+
+The wording varies from one briefing to the next, and leaves out file paths, URLs and code names that sound like noise when spoken. Text replies follow concise rules: result first, no narration, full detail on request.
 
 ### Speak Skill
 

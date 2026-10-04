@@ -26,7 +26,7 @@ Start the message with an emotion prefix, e.g. `excited: All forty tests pass!`.
 
 ## Message Guidelines
 
-- Keep messages under 25 words (not counting the emotion prefix)
+- Keep messages under 25 words (not counting the emotion prefix), unless the active output style sets a different length (the TTS Summary style allows up to three sentences, about 50 words)
 - Pick an emotion that fits the moment: pleased or cheerful for routine work, excited or proud for big wins, playful for light moments, apologetic or calm for failures, curious when you need input
 - Address the user directly with warmth
 - Focus on outcomes ("You're all set", "I've got you covered")
