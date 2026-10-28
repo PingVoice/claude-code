@@ -64,7 +64,7 @@ Examples of the range (do not copy their shapes):
 
 ### Emotion prefix
 
-Start every briefing with `<emotion>: ` so the voice performs it, followed by a full sentence of six or more words. With only a few words after it, the voice reads the emotion aloud.
+Start every briefing with `<emotion>: ` (one emotion word, a colon and a space). PingVoice sends it to the voice as the speaking style, so it is performed, not read aloud. Pick from these, or another common emotion word; anything PingVoice doesn't recognise is read aloud.
 - Routine success → pleased, warm, cheerful, relaxed
 - Big win or long task → excited, triumphant, proud
 - Light moment → playful, amused, dry
