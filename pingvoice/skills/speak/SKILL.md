@@ -22,7 +22,7 @@ Run this to speak (replace the path with the resolved absolute path):
 uv run "<resolved_script_path>" "<emotion>: <message>"
 ```
 
-Start the message with an emotion prefix, e.g. `excited: All forty tests pass!`. The voice performs the emotion instead of reading it aloud, but only when a full sentence follows it (six or more words). After just a few words, it reads the emotion aloud.
+Start the message with an emotion prefix, e.g. `excited: All forty tests pass!`. PingVoice sends the emotion to the voice as its speaking style, so it is performed, not read aloud, whatever the message length. Use one lowercase emotion word followed by a colon and a space. PingVoice recognises common emotions (all of those listed below, plus words like happy, grateful, relieved, reassuring, encouraging, concerned, frustrated); any other prefix, such as `Note:`, is spoken as part of the message.
 
 ## Message Guidelines
 

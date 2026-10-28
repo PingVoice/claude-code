@@ -47,7 +47,7 @@ Once installed, the plugin automatically triggers audio for:
 - **Session Start** - A varied welcome, e.g. "Welcome back, [name]. It's good to be working together again."
 - **Notification** - A varied nudge, e.g. "There's a quick question waiting for you in the terminal."
 
-Every spoken line starts with an emotion prefix (e.g. `warm: Welcome back, it's good to see you again.`) that PingVoice's Gemini voices perform rather than read aloud. The prefix needs a full sentence after it; with only a few words, the voice reads the emotion aloud.
+Every spoken line starts with an emotion prefix (e.g. `warm: Welcome back, it's good to see you again.`). PingVoice sends it to the Gemini voice as the speaking style, so the voice performs the emotion rather than reading it aloud. It recognises common emotion words such as excited, proud, calm, curious and apologetic; any other prefix is spoken as part of the message.
 
 ### Output Style
 
